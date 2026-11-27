@@ -219,17 +219,15 @@ footer a{color:var(--muted);text-decoration:underline}
   .domain-badge i{animation:none}
 }
 
-/* ---- Easter egg: Cash Catcher mini-game ---- */
-.game-overlay{position:fixed;inset:0;background:rgba(4,12,20,.72);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
-.game-overlay.open{display:flex}
-.game-card{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:18px;padding:20px;width:min(92vw,420px);box-shadow:0 24px 60px rgba(0,0,0,.35)}
-.game-card h3{font-family:"IBM Plex Serif",serif;margin:0 0 4px;font-size:20px}
-.game-card p{margin:0 0 12px;color:var(--muted);font-size:13.5px;line-height:1.55}
-.game-hud{display:flex;justify-content:space-between;gap:8px;font-size:14px;font-weight:700;margin-bottom:10px}
-.game-hud span{color:var(--muted);font-weight:500}
-#cash-canvas{width:100%;height:300px;display:block;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;touch-action:manipulation}
-.game-actions{display:flex;gap:10px;margin-top:12px}
-.game-actions .btn{flex:1}
+/* ---- Flappy Zaighum: visible mini-game ---- */
+.flappy-wrap{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px}
+.flappy-hud{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:10px}
+.flappy-hud b{color:var(--ink);font-size:16px}
+#flappy-canvas{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line);touch-action:manipulation;cursor:pointer}
+.flappy-msg{color:var(--muted);font-size:13.5px;text-align:center;margin:12px 0}
+.flappy-wrap .game-actions{display:flex}
+.flappy-wrap .game-actions .btn{flex:1}
+/* Konami confetti + toast */
 .confetti-bit{position:fixed;top:-12px;width:9px;height:14px;z-index:60;pointer-events:none;animation:confetti-fall linear forwards}
 @keyframes confetti-fall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;transition:.35s;z-index:60;pointer-events:none;max-width:90vw;text-align:center}
@@ -260,6 +258,7 @@ footer a{color:var(--muted);text-decoration:underline}
         <a href="#certifications">Certifications</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
+        <a href="#play">Play</a>
       </nav>
 
       <div class="rail-actions">
@@ -377,6 +376,18 @@ footer a{color:var(--muted);text-decoration:underline}
       </div>
     </section>
 
+      <section id="play">
+        <div class="sec-head"><span class="sec-num">07</span><h2>Take a break</h2></div>
+        <p class="lead">A quick game — <strong>Flappy Zaighum</strong>. That is me, flying through the pipes. Tap, click or press Space to flap.</p>
+        <div class="flappy-wrap">
+          <div class="flappy-hud"><span>Score <b id="flappy-score">0</b></span><span>Best <b id="flappy-best">0</b></span></div>
+          <canvas id="flappy-canvas" width="380" height="440"></canvas>
+          <img id="flappy-bird-img" src="data:image/jpeg;base64,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" alt="" aria-hidden="true" style="display:none">
+          <p class="flappy-msg" id="flappy-msg">Tap, click or press Space to flap. Dodge the pipes!</p>
+          <div class="game-actions"><button class="btn btn-primary" id="flappy-start" type="button">Start game</button></div>
+        </div>
+      </section>
+
     <footer>
       <p>Syed Zaighum Abbas Shah · Karachi, Pakistan · <a href="mailto:zaighumx@gmail.com">zaighumx@gmail.com</a> · zaighum.co</p>
       <p>© 2026 Syed Zaighum Abbas Shah</p>
@@ -406,7 +417,7 @@ footer a{color:var(--muted);text-decoration:underline}
 
 // Reveal-on-scroll for section heads and cards
 (function(){
-  var els = document.querySelectorAll('.sec-head, .role-card, .edu, .cert, .skill-box, .stat, .contact-card');
+  var els = document.querySelectorAll('.sec-head, .role-card, .edu, .cert, .skill-box, .stat, .contact-card, .flappy-wrap');
   if(!('IntersectionObserver' in window)){ els.forEach(function(el){ el.classList.add('in'); }); return; }
   var obs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -424,10 +435,147 @@ footer a{color:var(--muted);text-decoration:underline}
   });
 })();
 
-// Easter eggs + Cash Catcher mini-game
+// Flappy Zaighum — visible mini-game (you are the bird)
+(function(){
+  var canvas = document.getElementById('flappy-canvas');
+  if(!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  var birdImg = document.getElementById('flappy-bird-img');
+  var scoreEl = document.getElementById('flappy-score');
+  var bestEl = document.getElementById('flappy-best');
+  var msgEl = document.getElementById('flappy-msg');
+  var startBtn = document.getElementById('flappy-start');
+  var isDark = function(){ return window.matchMedia('(prefers-color-scheme: dark)').matches; };
+  var best = 0;
+  try { best = parseInt(localStorage.getItem('flappyZaighumBest') || '0', 10) || 0; } catch(e){}
+  bestEl.textContent = best;
+
+  var GRAV = 0.45, FLAP = -7.6, PIPE_W = 62, GAP = 134, SPEED = 2.3, SPAWN = 96, GROUND = 34;
+  var bird, pipes, frames, score, state;
+  function reset(){
+    bird = {x: 80, y: H/2 - 50, vy: 0, r: 17};
+    pipes = []; frames = 0; score = 0;
+    scoreEl.textContent = '0';
+    state = 'ready';
+    msgEl.textContent = 'Tap, click or press Space to flap. Dodge the pipes!';
+    startBtn.textContent = 'Start game';
+    draw();
+  }
+  function flap(){
+    if(state === 'ready'){ state = 'play'; msgEl.textContent = ''; startBtn.textContent = 'Restart'; }
+    else if(state === 'over'){ reset(); state = 'play'; msgEl.textContent = ''; startBtn.textContent = 'Restart'; }
+    if(state === 'play'){ bird.vy = FLAP; }
+  }
+  function gameOver(){
+    if(state !== 'play') return;
+    state = 'over';
+    if(score > best){
+      best = score;
+      try { localStorage.setItem('flappyZaighumBest', String(best)); } catch(e){}
+      bestEl.textContent = best;
+      msgEl.textContent = 'New best: ' + score + '! Tap to play again.';
+    } else {
+      msgEl.textContent = 'Game over — you scored ' + score + '. Tap to play again.';
+    }
+    startBtn.textContent = 'Play again';
+  }
+  function step(){
+    if(state === 'play'){
+      frames++;
+      bird.vy += GRAV;
+      bird.y += bird.vy;
+      if(bird.y - bird.r <= 0){ bird.y = bird.r; bird.vy = 0; }
+      if(frames % SPAWN === 0){
+        var topH = 50 + Math.random() * (H - GROUND - GAP - 110);
+        pipes.push({x: W + 10, top: topH, passed: false});
+      }
+      for(var i = 0; i < pipes.length; i++){
+        var p = pipes[i];
+        p.x -= SPEED;
+        if(!p.passed && p.x + PIPE_W < bird.x - bird.r){ p.passed = true; score++; scoreEl.textContent = score; }
+      }
+      pipes = pipes.filter(function(p){ return p.x + PIPE_W > -10; });
+      if(bird.y + bird.r >= H - GROUND){ gameOver(); }
+      for(var j = 0; j < pipes.length; j++){
+        var q = pipes[j];
+        if(bird.x + bird.r > q.x && bird.x - bird.r < q.x + PIPE_W &&
+           (bird.y - bird.r < q.top || bird.y + bird.r > q.top + GAP)){ gameOver(); }
+      }
+    }
+    draw();
+    requestAnimationFrame(step);
+  }
+  function draw(){
+    var dk = isDark();
+    var sky = ctx.createLinearGradient(0, 0, 0, H);
+    if(dk){ sky.addColorStop(0, '#0e2233'); sky.addColorStop(1, '#162638'); }
+    else { sky.addColorStop(0, '#dceef0'); sky.addColorStop(1, '#f6f7f5'); }
+    ctx.fillStyle = sky;
+    ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = dk ? 'rgba(255,255,255,.06)' : 'rgba(255,255,255,.85)';
+    ctx.beginPath(); ctx.arc(70, 70, 18, 0, Math.PI*2); ctx.arc(95, 62, 24, 0, Math.PI*2); ctx.arc(120, 72, 16, 0, Math.PI*2); ctx.fill();
+    ctx.beginPath(); ctx.arc(280, 120, 15, 0, Math.PI*2); ctx.arc(300, 112, 20, 0, Math.PI*2); ctx.arc(322, 122, 14, 0, Math.PI*2); ctx.fill();
+    pipes.forEach(function(p){
+      var body = dk ? '#2dd4bf' : '#0e6b5e';
+      ctx.fillStyle = body;
+      ctx.fillRect(p.x, 0, PIPE_W, p.top);
+      ctx.fillRect(p.x, p.top + GAP, PIPE_W, H - GROUND - p.top - GAP);
+      ctx.fillStyle = '#0a4f45';
+      ctx.fillRect(p.x, p.top - 18, PIPE_W, 18);
+      ctx.fillRect(p.x, p.top + GAP, PIPE_W, 18);
+      ctx.fillStyle = 'rgba(255,255,255,.25)';
+      ctx.fillRect(p.x + 8, 0, 8, p.top);
+      ctx.fillRect(p.x + 8, p.top + GAP, 8, H - GROUND - p.top - GAP);
+    });
+    ctx.fillStyle = dk ? '#111e2e' : '#eef1ee';
+    ctx.fillRect(0, H - GROUND, W, GROUND);
+    ctx.fillStyle = dk ? '#2dd4bf' : '#0e6b5e';
+    ctx.fillRect(0, H - GROUND, W, 3);
+    ctx.fillStyle = dk ? '#e8eef4' : '#0f2236';
+    ctx.font = '700 34px Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(String(score), W/2, 52);
+    var bob = state === 'ready' ? Math.sin(Date.now()/280) * 6 : 0;
+    var by = bird.y + bob;
+    var rot = state === 'play' ? Math.max(-0.45, Math.min(0.55, bird.vy * 0.06)) : 0;
+    ctx.save();
+    ctx.translate(bird.x, by);
+    ctx.rotate(rot);
+    ctx.beginPath(); ctx.arc(0, 0, bird.r, 0, Math.PI*2);
+    if(birdImg && birdImg.complete && birdImg.naturalWidth){
+      ctx.save();
+      ctx.clip();
+      ctx.drawImage(birdImg, -bird.r, -bird.r, bird.r*2, bird.r*2);
+      ctx.restore();
+    } else {
+      ctx.fillStyle = '#0e6b5e';
+      ctx.fill();
+    }
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2.5; ctx.stroke();
+    ctx.restore();
+    if(state === 'ready'){
+      ctx.fillStyle = dk ? '#94a3b8' : '#64748b';
+      ctx.font = '600 14px system-ui, sans-serif';
+      ctx.fillText('Tap to start', W/2, H - 56);
+    }
+  }
+  canvas.addEventListener('pointerdown', function(e){ e.preventDefault(); flap(); });
+  startBtn.addEventListener('click', flap);
+  document.addEventListener('keydown', function(e){
+    if(e.code === 'Space' || e.key === 'ArrowUp'){
+      var r = canvas.getBoundingClientRect();
+      if(r.bottom > 0 && r.top < window.innerHeight){ e.preventDefault(); flap(); }
+    }
+  });
+  if(birdImg && !birdImg.complete){ birdImg.addEventListener('load', draw); }
+  reset();
+  requestAnimationFrame(step);
+})();
+
+// Konami-code Easter egg (confetti)
 (function(){
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   var toast = document.createElement('div');
   toast.className = 'toast';
   document.body.appendChild(toast);
@@ -438,7 +586,6 @@ footer a{color:var(--muted);text-decoration:underline}
     clearTimeout(toastTimer);
     toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 3200);
   }
-
   function confetti(n){
     if(reduceMotion) return;
     var colors = ['#0e6b5e','#2dd4bf','#b9975b','#d97706','#e8eef4','#f59e0b'];
@@ -454,137 +601,6 @@ footer a{color:var(--muted);text-decoration:underline}
       (function(b){ setTimeout(function(){ b.remove(); }, 4200); })(bit);
     }
   }
-
-  var overlay = document.createElement('div');
-  overlay.className = 'game-overlay';
-  overlay.id = 'cash-game';
-  overlay.innerHTML = '<div class="game-card" role="dialog" aria-label="Cash Catcher game">'
-    + '<h3>Cash Catcher</h3>'
-    + '<p>30 seconds. Tap the falling coins to count the cash — golden coins are worth 5x. No real money involved, just fast fingers.</p>'
-    + '<div class="game-hud"><div>Score: <b id="cash-score">Rs 0</b></div><div>Time: <b id="cash-time">30s</b></div><div>Best: <b id="cash-best">Rs 0</b></div></div>'
-    + '<canvas id="cash-canvas" width="380" height="300"></canvas>'
-    + '<div class="game-actions"><button class="btn btn-primary" id="cash-start" type="button">Start game</button>'
-    + '<button class="btn btn-secondary" id="cash-close" type="button">Close</button></div>'
-    + '</div>';
-  document.body.appendChild(overlay);
-
-  var canvas = overlay.querySelector('#cash-canvas');
-  var ctx = canvas.getContext('2d');
-  var scoreEl = overlay.querySelector('#cash-score');
-  var timeEl = overlay.querySelector('#cash-time');
-  var bestEl = overlay.querySelector('#cash-best');
-  var startBtn = overlay.querySelector('#cash-start');
-  var best = 0;
-  try { best = parseInt(localStorage.getItem('cashCatcherBest') || '0', 10) || 0; } catch(e){}
-  bestEl.textContent = 'Rs ' + best;
-
-  var coins = [], raf = null, lastSpawn = 0, timeLeft = 30, score = 0, running = false, lastTick = 0;
-
-  function spawnCoin(){
-    var gold = Math.random() < 0.15;
-    coins.push({x: 20 + Math.random()*(canvas.width-40), y: -20, r: gold ? 17 : 14,
-      vy: 1.6 + Math.random()*1.8, vx: (Math.random()-0.5)*0.6, gold: gold});
-  }
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    coins.forEach(function(c){
-      ctx.save();
-      ctx.translate(c.x, c.y);
-      ctx.beginPath(); ctx.arc(0,0,c.r,0,Math.PI*2);
-      ctx.fillStyle = c.gold ? '#f59e0b' : '#d4a017'; ctx.fill();
-      ctx.lineWidth = 2; ctx.strokeStyle = c.gold ? '#fff7d6' : '#8a6d1b'; ctx.stroke();
-      ctx.beginPath(); ctx.arc(0,0,c.r-5,0,Math.PI*2); ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = 1; ctx.stroke();
-      ctx.fillStyle = '#fff'; ctx.font = 'bold ' + (c.gold ? 11 : 10) + 'px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-      ctx.fillText(c.gold ? '5x' : 'Rs', 0, 0.5);
-      ctx.restore();
-    });
-  }
-  function loop(ts){
-    if(!running) return;
-    var dt = ts - lastTick; lastTick = ts;
-    if(ts - lastSpawn > 520){ spawnCoin(); lastSpawn = ts; }
-    coins.forEach(function(c){ c.y += c.vy * (dt/16); c.x += c.vx * (dt/16); });
-    coins = coins.filter(function(c){ return c.y < canvas.height + 24; });
-    draw();
-    raf = requestAnimationFrame(loop);
-  }
-  function endGame(){
-    running = false;
-    cancelAnimationFrame(raf);
-    if(score > best){
-      best = score;
-      try { localStorage.setItem('cashCatcherBest', String(best)); } catch(e){}
-      bestEl.textContent = 'Rs ' + best;
-      showToast('New best score: Rs ' + score + '!');
-    } else {
-      showToast('Time up! You counted Rs ' + score + '.');
-    }
-    startBtn.textContent = 'Play again';
-  }
-  var timerInt = null;
-  function startGame(){
-    coins = []; score = 0; timeLeft = 30;
-    scoreEl.textContent = 'Rs 0'; timeEl.textContent = '30s';
-    startBtn.textContent = 'Playing...';
-    running = true; lastTick = performance.now(); lastSpawn = 0;
-    clearInterval(timerInt);
-    timerInt = setInterval(function(){
-      timeLeft -= 1;
-      timeEl.textContent = timeLeft + 's';
-      if(timeLeft <= 0){ clearInterval(timerInt); endGame(); }
-    }, 1000);
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(loop);
-  }
-  function closeGame(){
-    running = false; cancelAnimationFrame(raf); clearInterval(timerInt);
-    overlay.classList.remove('open');
-  }
-  startBtn.addEventListener('click', startGame);
-  overlay.querySelector('#cash-close').addEventListener('click', closeGame);
-  overlay.addEventListener('click', function(e){ if(e.target === overlay) closeGame(); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeGame(); });
-  canvas.addEventListener('pointerdown', function(e){
-    if(!running) return;
-    var rect = canvas.getBoundingClientRect();
-    var x = (e.clientX - rect.left) * (canvas.width / rect.width);
-    var y = (e.clientY - rect.top) * (canvas.height / rect.height);
-    for(var i = coins.length-1; i >= 0; i--){
-      var c = coins[i];
-      var dx = x - c.x, dy = y - c.y;
-      if(dx*dx + dy*dy <= (c.r+6)*(c.r+6)){
-        coins.splice(i,1);
-        score += c.gold ? 500 : 100;
-        scoreEl.textContent = 'Rs ' + score;
-        break;
-      }
-    }
-  });
-
-  function openGame(){
-    overlay.classList.add('open');
-    draw();
-  }
-
-  var typed = '';
-  document.addEventListener('keydown', function(e){
-    if(e.key && e.key.length === 1){
-      typed = (typed + e.key.toLowerCase()).slice(-4);
-      if(typed === 'cash'){ openGame(); confetti(50); showToast('Cash Catcher unlocked!'); }
-    }
-  });
-
-  var avatar = document.querySelector('.avatar');
-  var taps = [], TAP_WINDOW = 2500;
-  if(avatar){
-    avatar.addEventListener('click', function(){
-      var now = Date.now();
-      taps = taps.filter(function(t){ return now - t < TAP_WINDOW; });
-      taps.push(now);
-      if(taps.length >= 5){ taps = []; openGame(); confetti(70); }
-    });
-  }
-
   var konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   var ki = 0;
   document.addEventListener('keydown', function(e){
@@ -596,6 +612,7 @@ footer a{color:var(--muted);text-decoration:underline}
     }
   });
 })();
+
 </script>
 </body>
 </html>
